@@ -1,0 +1,5 @@
+<Bindings>
+    <Binding name="RIDE_SMART_TRAVEL" header="RIDE" category="ADDONS">
+        RIDE:ActivateFromBinding()
+    </Binding>
+</Bindings>

@@ -1,0 +1,39 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build addon package
+        run: |
+          mkdir -p package/RIDE
+          cp RIDE.toc package/RIDE/
+          cp RIDE.lua package/RIDE/
+          cp Bindings.xml package/RIDE/
+          cd package
+          zip -r ../RIDE.zip RIDE
+
+      - name: Upload package artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: RIDE
+          path: RIDE.zip
+
+      - name: Publish GitHub release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: RIDE.zip

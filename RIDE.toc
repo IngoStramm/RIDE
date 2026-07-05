@@ -1,0 +1,10 @@
+## Interface: 20505
+## Title: RIDE
+## Notes: Ride Intelligent Dispatch Engine for one-key mount and travel form selection.
+## Notes-ptBR: Escolhe montaria ou forma de viagem com uma tecla.
+## Author: Ingo Stramm
+## Version: 1.0.0
+## SavedVariablesPerCharacter: RIDEDB
+## DefaultState: enabled
+
+RIDE.lua
