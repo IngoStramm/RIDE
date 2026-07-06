@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/ride-logo.png" alt="RIDE logo" width="180">
+</p>
+
 # RIDE - Ride Intelligent Dispatch Engine
 
 RIDE is a World of Warcraft Classic TBC Anniversary addon that binds one secure button to a smart travel action.
