@@ -59,6 +59,15 @@ Set the key in Options > Keybindings > AddOns > RIDE, or use the Set key button 
 
 ## Changelog
 
+The latest release changelog used by CurseForge and GitHub Releases is maintained in [CHANGELOG.md](CHANGELOG.md).
+
+### 1.0.5
+
+- Configured CurseForge automatic packaging to use a Markdown changelog instead of raw Git commit output.
+- Updated GitHub Releases to use the same changelog text as CurseForge.
+- Added a local release helper script for future version bumps, validation, commit, tag, and push.
+- No addon behavior changes from 1.0.4.
+
 ### 1.0.4
 
 - Published a metadata-only release after enabling the CurseForge GitHub webhook to validate automatic packaging.
