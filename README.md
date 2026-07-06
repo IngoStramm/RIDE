@@ -59,6 +59,11 @@ Set the key in Options > Keybindings > AddOns > RIDE, or use the Set key button 
 
 ## Changelog
 
+### 1.0.3
+
+- Published a metadata-only release to validate CurseForge automatic packaging after GitHub source integration.
+- No addon behavior changes from 1.0.2.
+
 ### 1.0.2
 
 - Added Paladin class mount support for Warhorse, Charger, Thalassian Warhorse, and Thalassian Charger.
