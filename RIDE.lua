@@ -178,6 +178,7 @@ local OUTLAND_MAPS = {
 
 local db
 local optionsPanel
+local standaloneWindow
 local settingsCategory
 local statusLines = {}
 local pendingSecureUpdate
@@ -1337,6 +1338,74 @@ local function RegisterInterfaceOptions()
     end
 end
 
+local function DetachOptionsPanel()
+    if not optionsPanel then
+        return
+    end
+
+    optionsPanel:SetParent(UIParent)
+    optionsPanel:ClearAllPoints()
+    optionsPanel:Hide()
+end
+
+local function CreateStandaloneWindow()
+    if standaloneWindow then
+        return standaloneWindow
+    end
+
+    local ok, window = pcall(CreateFrame, "Frame", "RIDEConfigWindow", UIParent, "BasicFrameTemplateWithInset")
+    if not ok or not window then
+        ok, window = pcall(CreateFrame, "Frame", "RIDEConfigWindow", UIParent, "BackdropTemplate")
+    end
+    if not ok or not window then
+        window = CreateFrame("Frame", "RIDEConfigWindow", UIParent)
+    end
+
+    window:SetSize(700, 610)
+    window:SetPoint("CENTER")
+    window:SetFrameStrata("FULLSCREEN_DIALOG")
+    window:SetToplevel(true)
+    window:EnableMouse(true)
+    window:SetMovable(true)
+    window:RegisterForDrag("LeftButton")
+    window:SetScript("OnDragStart", window.StartMoving)
+    window:SetScript("OnDragStop", window.StopMovingOrSizing)
+    window:SetScript("OnHide", function()
+        if optionsPanel and optionsPanel:GetParent() == window.content then
+            DetachOptionsPanel()
+        end
+    end)
+    window:Hide()
+
+    if window.SetBackdrop then
+        window:SetBackdrop({
+            bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background",
+            edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
+            tile = true,
+            tileSize = 32,
+            edgeSize = 32,
+            insets = { left = 11, right = 12, top = 12, bottom = 11 },
+        })
+        window:SetBackdropColor(0, 0, 0, 0.94)
+        window:SetBackdropBorderColor(0.65, 0.55, 0.35, 1)
+    end
+
+    if UISpecialFrames then
+        UISpecialFrames[#UISpecialFrames + 1] = "RIDEConfigWindow"
+    end
+
+    local title = CreateText(window, L.OPTIONS_TITLE, "GameFontHighlight")
+    title:SetPoint("TOP", window, "TOP", 0, -6)
+
+    local content = CreateFrame("Frame", nil, window)
+    content:SetPoint("TOPLEFT", window, "TOPLEFT", 20, -38)
+    content:SetPoint("BOTTOMRIGHT", window, "BOTTOMRIGHT", -20, 18)
+    window.content = content
+
+    standaloneWindow = window
+    return standaloneWindow
+end
+
 function RIDE:RefreshOptions()
     if not optionsPanel or not db then
         return
@@ -1422,17 +1491,34 @@ function RIDE:OpenOptions()
     CreateOptionsPanel()
     self:RefreshOptions()
 
+    local window = CreateStandaloneWindow()
+    optionsPanel:SetParent(window.content)
+    optionsPanel:ClearAllPoints()
+    optionsPanel:SetPoint("TOPLEFT", window.content, "TOPLEFT", 0, 0)
+    optionsPanel:SetSize(640, 540)
+    optionsPanel:Show()
+    window:Show()
+    window:Raise()
+end
+
+function RIDE:OpenInterfaceOptions()
+    CreateOptionsPanel()
+    if standaloneWindow and standaloneWindow:IsShown() then
+        standaloneWindow:Hide()
+    elseif standaloneWindow and optionsPanel:GetParent() == standaloneWindow.content then
+        DetachOptionsPanel()
+    end
+    optionsPanel:SetParent(UIParent)
+    optionsPanel:ClearAllPoints()
+    optionsPanel:Show()
+    self:RefreshOptions()
+
     if Settings and Settings.OpenToCategory and settingsCategory then
         local id = settingsCategory.GetID and settingsCategory:GetID() or settingsCategory.ID or settingsCategory
         Settings.OpenToCategory(id)
     elseif InterfaceOptionsFrame_OpenToCategory then
         InterfaceOptionsFrame_OpenToCategory(optionsPanel)
         InterfaceOptionsFrame_OpenToCategory(optionsPanel)
-    else
-        optionsPanel:SetParent(UIParent)
-        optionsPanel:ClearAllPoints()
-        optionsPanel:SetPoint("CENTER")
-        optionsPanel:Show()
     end
 end
 
