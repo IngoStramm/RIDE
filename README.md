@@ -59,6 +59,11 @@ Set the key in Options > Keybindings > AddOns > RIDE, or use the Set key button 
 
 ## Changelog
 
+### 1.0.4
+
+- Published a metadata-only release after enabling the CurseForge GitHub webhook to validate automatic packaging.
+- No addon behavior changes from 1.0.3.
+
 ### 1.0.3
 
 - Published a metadata-only release to validate CurseForge automatic packaging after GitHub source integration.

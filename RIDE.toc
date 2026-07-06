@@ -3,7 +3,7 @@
 ## Notes: Ride Intelligent Dispatch Engine for one-key mount and travel form selection.
 ## Notes-ptBR: Escolhe montaria ou forma de viagem com uma tecla.
 ## Author: Ingo Stramm
-## Version: 1.0.3
+## Version: 1.0.4
 ## X-Curse-Project-ID: 1599723
 ## SavedVariablesPerCharacter: RIDEDB
 ## DefaultState: enabled
