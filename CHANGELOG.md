@@ -1,6 +1,4 @@
-## 1.0.5
+## 1.0.6
 
-- Configured CurseForge automatic packaging to use this Markdown changelog instead of raw Git commit output.
-- Updated GitHub Releases to use the same changelog text as CurseForge.
-- Added a local release helper script for future version bumps, validation, commit, tag, and push.
-- No addon behavior changes from 1.0.4.
+- Removed the Refresh button from the RIDE options panel to keep the configuration UI simpler.
+- Kept `/ride update` available as a hidden manual fallback for troubleshooting and support.

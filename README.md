@@ -61,6 +61,11 @@ Set the key in Options > Keybindings > AddOns > RIDE, or use the Set key button 
 
 The latest release changelog used by CurseForge and GitHub Releases is maintained in [CHANGELOG.md](CHANGELOG.md).
 
+### 1.0.6
+
+- Removed the Refresh button from the RIDE options panel to keep the configuration UI simpler.
+- Kept `/ride update` available as a hidden manual fallback for troubleshooting and support.
+
 ### 1.0.5
 
 - Configured CurseForge automatic packaging to use a Markdown changelog instead of raw Git commit output.

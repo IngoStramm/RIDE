@@ -39,7 +39,6 @@ local LOCALES = {
         PREVENT_FLYING_DISMOUNT = "Prevent dismount while flying",
         SET_BINDING = "Set key",
         CLEAR_BINDING = "Clear key",
-        REFRESH = "Refresh",
         STATUS = "Status",
         KEYBIND = "Keybind",
         KEYBIND_CAPTURE = "Press a key for RIDE Smart Travel. Press Esc to cancel.",
@@ -101,7 +100,6 @@ local LOCALES = {
         PREVENT_FLYING_DISMOUNT = "Prevenir desmontar enquanto voa",
         SET_BINDING = "Definir tecla",
         CLEAR_BINDING = "Limpar tecla",
-        REFRESH = "Atualizar",
         STATUS = "Status",
         KEYBIND = "Tecla",
         KEYBIND_CAPTURE = "Pressione uma tecla para o Smart Travel do RIDE. Pressione Esc para cancelar.",
@@ -1385,12 +1383,6 @@ local function CreateOptionsPanel()
     clearBindingButton:SetPoint("LEFT", bindingsButton, "RIGHT", 8, 0)
     clearBindingButton:SetScript("OnClick", function()
         RIDE:ClearSmartTravelBinding()
-    end)
-
-    local refreshButton = CreateButton(panel, L.REFRESH, 100)
-    refreshButton:SetPoint("LEFT", clearBindingButton, "RIGHT", 8, 0)
-    refreshButton:SetScript("OnClick", function()
-        RIDE:UpdateSecureAction()
     end)
 
     local statusLabel = CreateText(panel, L.STATUS, "GameFontNormal")
