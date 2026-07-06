@@ -4,17 +4,18 @@
 
 # RIDE - Ride Intelligent Dispatch Engine
 
-A smart one-key mount addon that automatically chooses the best ground, flying, or Druid travel option for your current situation.
+A smart one-key mount addon that automatically chooses the best ground, flying, class mount, or Druid travel option for your current situation.
 
-RIDE is a lightweight World of Warcraft Classic TBC Anniversary addon that gives you one smart keybind for travel. Instead of managing separate buttons for ground mounts, flying mounts, and Druid travel forms, RIDE chooses the best available option based on your current area and configuration.
+RIDE is a lightweight World of Warcraft Classic TBC Anniversary addon that gives you one smart keybind for travel. Instead of managing separate buttons for ground mounts, flying mounts, Paladin/Warlock class mounts, and Druid travel forms, RIDE chooses the best available option based on your current area and configuration.
 
 RIDE is designed for Classic TBC, where mounts are still items in your bags. It does not rely on the broken `[flyable]` macro conditional; instead, it updates a secure travel action out of combat.
 
 ## Features
 
-- One keybind for ground mounts, flying mounts, and Druid travel forms.
+- One keybind for ground mounts, flying mounts, class mounts, and Druid travel forms.
 - Ground/flying mount slots with drag-and-drop item setup.
 - Druid Aquatic Form, Flight Form, and Travel Form support when known.
+- Paladin Warhorse/Charger and Warlock Felsteed/Dreadsteed support when known.
 - Fallback to ground mount when the character has no usable flying mount.
 - Optional protection against dismounting while flying.
 - Keybind setup from the RIDE options panel or WoW's Keybindings options.
@@ -48,6 +49,7 @@ Do not use GitHub's green **Code > Download ZIP** button for installation. That 
 - Right-click a mount slot to clear it.
 - `/ride clear ground|flying` - clear a mount
 - `/ride druid` - toggle Druid travel forms
+- `/ride classmount` - toggle Paladin/Warlock class mounts
 - `/ride bind <key>` - bind Smart Travel, for example `/ride bind CTRL-F`
 - `/ride bind` - capture the next key
 - `/ride unbind` - clear the Smart Travel keybind
@@ -56,6 +58,15 @@ Do not use GitHub's green **Code > Download ZIP** button for installation. That 
 Set the key in Options > Keybindings > AddOns > RIDE, or use the Set key button in `/ride`.
 
 ## Changelog
+
+### 1.0.2
+
+- Added Paladin class mount support for Warhorse, Charger, Thalassian Warhorse, and Thalassian Charger.
+- Added Warlock class mount support for Felsteed and Dreadsteed.
+- Added a class mount option that only appears when the current character knows a supported class mount spell.
+- Added `/ride classmount` and `/ride class` commands to toggle class mount usage.
+- Updated smart travel fallback so Paladin/Warlock class mounts can be used when no flying mount is available.
+- Prepared CurseForge automatic packaging metadata.
 
 ### 1.0.1
 

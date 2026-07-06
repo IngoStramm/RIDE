@@ -1,0 +1,9 @@
+package-as: RIDE
+
+ignore:
+  - .pkgmeta
+  - README.md
+  - assets
+  - .github
+  - .gitignore
+  - "*.zip"

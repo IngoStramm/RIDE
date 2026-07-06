@@ -20,6 +20,7 @@ local LOCALES = {
         HELP_CURSOR = "/ride ground or /ride flying while holding a mount item - set from cursor",
         HELP_CLEAR = "/ride clear ground|flying - clear a mount",
         HELP_DRUID = "/ride druid - toggle Druid travel forms",
+        HELP_CLASS_MOUNT = "/ride classmount - toggle Paladin/Warlock class mounts",
         HELP_BIND = "/ride bind <key> - bind Smart Travel, e.g. /ride bind CTRL-F",
         HELP_UNBIND = "/ride unbind - clear the Smart Travel keybind",
         HELP_UPDATE = "/ride update - rebuild the secure action",
@@ -34,6 +35,7 @@ local LOCALES = {
         DRUID_AQUATIC = "Use Aquatic Form while swimming",
         DRUID_FLIGHT = "Use Flight Form in flyable areas",
         DRUID_TRAVEL = "Use Travel Form on ground",
+        CLASS_MOUNT = "Use class mount",
         PREVENT_FLYING_DISMOUNT = "Prevent dismount while flying",
         SET_BINDING = "Set key",
         CLEAR_BINDING = "Clear key",
@@ -59,6 +61,8 @@ local LOCALES = {
         NO_CURSOR_ITEM = "Hold a mount item on the cursor first.",
         DRUID_ON = "Druid travel forms enabled.",
         DRUID_OFF = "Druid travel forms disabled.",
+        CLASS_MOUNT_ON = "Class mount enabled.",
+        CLASS_MOUNT_OFF = "Class mount disabled.",
         BINDING_SET = "Smart Travel bound to %s.",
         BINDING_CLEARED = "Smart Travel keybind cleared.",
         BINDING_CANCELLED = "Keybind capture cancelled.",
@@ -78,6 +82,7 @@ local LOCALES = {
         HELP_CURSOR = "/ride ground ou /ride flying segurando um item no cursor - definir pelo cursor",
         HELP_CLEAR = "/ride clear ground|flying - limpar uma montaria",
         HELP_DRUID = "/ride druid - alternar formas de viagem do druida",
+        HELP_CLASS_MOUNT = "/ride classmount - alternar montaria de classe de Paladino/Bruxo",
         HELP_BIND = "/ride bind <tecla> - definir a tecla, ex: /ride bind CTRL-F",
         HELP_UNBIND = "/ride unbind - limpar a tecla do Smart Travel",
         HELP_UPDATE = "/ride update - reconstruir a acao segura",
@@ -92,6 +97,7 @@ local LOCALES = {
         DRUID_AQUATIC = "Usar Forma Aquatica ao nadar",
         DRUID_FLIGHT = "Usar Forma de Voo em areas voaveis",
         DRUID_TRAVEL = "Usar Forma de Viagem em terra",
+        CLASS_MOUNT = "Usar montaria de classe",
         PREVENT_FLYING_DISMOUNT = "Prevenir desmontar enquanto voa",
         SET_BINDING = "Definir tecla",
         CLEAR_BINDING = "Limpar tecla",
@@ -117,6 +123,8 @@ local LOCALES = {
         NO_CURSOR_ITEM = "Segure um item de montaria no cursor primeiro.",
         DRUID_ON = "Formas de viagem do druida ativadas.",
         DRUID_OFF = "Formas de viagem do druida desativadas.",
+        CLASS_MOUNT_ON = "Montaria de classe ativada.",
+        CLASS_MOUNT_OFF = "Montaria de classe desativada.",
         BINDING_SET = "Smart Travel definido em %s.",
         BINDING_CLEARED = "Tecla do Smart Travel limpa.",
         BINDING_CANCELLED = "Captura de tecla cancelada.",
@@ -148,6 +156,7 @@ local DEFAULT_DB = {
     useDruidAquatic = true,
     useDruidFlight = true,
     useDruidTravel = true,
+    useClassMount = true,
     dismount = false,
     preventDismountFlying = true,
 }
@@ -157,6 +166,19 @@ local DRUID_SPELLS = {
     travel = 783,
     flight = 33943,
     swiftFlight = 40120,
+}
+
+local CLASS_MOUNT_SPELLS = {
+    PALADIN = {
+        23214, -- Summon Charger
+        34767, -- Summon Thalassian Charger
+        13819, -- Summon Warhorse
+        34769, -- Summon Thalassian Warhorse
+    },
+    WARLOCK = {
+        23161, -- Summon Dreadsteed
+        5784, -- Summon Felsteed
+    },
 }
 
 local ICONS = {
@@ -189,6 +211,7 @@ local bindingCaptureFrame
 
 local playerClass
 local isDruid
+local hasClassMounts
 
 local BINDING_COMMAND = "CLICK RIDEButton:LeftButton"
 local VISIBLE_BINDING_COMMAND = "RIDE_SMART_TRAVEL"
@@ -516,6 +539,56 @@ local function GetBestFlightForm()
     return GetKnownSpellName(DRUID_SPELLS.swiftFlight) or GetKnownSpellName(DRUID_SPELLS.flight)
 end
 
+local function GetBestClassMountSpellID()
+    local spells = playerClass and CLASS_MOUNT_SPELLS[playerClass]
+    if not spells then
+        return nil
+    end
+
+    for _, spellID in ipairs(spells) do
+        if IsSpellKnownByID(spellID) then
+            return spellID
+        end
+    end
+
+    return nil
+end
+
+local function GetBestClassMountName()
+    local spellID = GetBestClassMountSpellID()
+    if spellID and GetSpellInfo then
+        return GetSpellInfo(spellID)
+    end
+    return nil
+end
+
+local function GetBestClassMountIcon()
+    local spellID = GetBestClassMountSpellID()
+    if spellID and GetSpellInfo then
+        return select(3, GetSpellInfo(spellID))
+    end
+    return nil
+end
+
+local function GetClassMountIcon()
+    local icon = GetBestClassMountIcon()
+    if icon then
+        return icon
+    end
+
+    local spells = playerClass and CLASS_MOUNT_SPELLS[playerClass]
+    if spells and GetSpellInfo then
+        return select(3, GetSpellInfo(spells[1]))
+    end
+    return nil
+end
+
+local function UpdatePlayerClass()
+    _, playerClass = UnitClass("player")
+    isDruid = playerClass == "DRUID"
+    hasClassMounts = CLASS_MOUNT_SPELLS[playerClass] and true or false
+end
+
 local function IsInRestrictedInstance()
     if IsInInstance then
         local inInstance, instanceType = IsInInstance()
@@ -636,6 +709,15 @@ local function BuildMacro()
         if travelName then
             AddLine(lines, "/cast [outdoors,nomounted] " .. travelName)
             actionText = travelName
+            return table.concat(lines, "\n"), actionText
+        end
+    end
+
+    if hasClassMounts and db.useClassMount then
+        local classMountName = GetBestClassMountName()
+        if classMountName then
+            AddLine(lines, "/cast [outdoors,nomounted] " .. classMountName)
+            actionText = classMountName
             return table.concat(lines, "\n"), actionText
         end
     end
@@ -1047,6 +1129,10 @@ function RIDE:GetStatusText()
         lines[#lines + 1] = L.DRUID_TRAVEL .. ": " .. (db.useDruidTravel and L.YES or L.NO)
     end
 
+    if hasClassMounts and GetBestClassMountName() then
+        lines[#lines + 1] = L.CLASS_MOUNT .. ": " .. GetBestClassMountName() .. " (" .. (db.useClassMount and L.YES or L.NO) .. ")"
+    end
+
     return table.concat(lines, "\n")
 end
 
@@ -1277,11 +1363,17 @@ local function CreateOptionsPanel()
         select(3, GetSpellInfo(DRUID_SPELLS.travel)))
     panel.druidTravel:SetPoint("TOPLEFT", panel.druidFlight, "BOTTOMLEFT", 0, -8)
 
+    panel.classMount = CreateCheckbox(panel, L.CLASS_MOUNT, nil,
+        function() return db.useClassMount end,
+        function(value) db.useClassMount = value end,
+        GetClassMountIcon())
+    panel.classMount:SetPoint("TOPLEFT", panel.druidTravel, "BOTTOMLEFT", 0, -8)
+
     panel.preventDismountFlying = CreateCheckbox(panel, L.PREVENT_FLYING_DISMOUNT, nil,
         function() return db.preventDismountFlying end,
         function(value) db.preventDismountFlying = value end,
         ICONS.preventDismount)
-    panel.preventDismountFlying:SetPoint("TOPLEFT", panel.druidTravel, "BOTTOMLEFT", 0, -8)
+    panel.preventDismountFlying:SetPoint("TOPLEFT", panel.classMount, "BOTTOMLEFT", 0, -8)
 
     local bindingsButton = CreateButton(panel, L.SET_BINDING, 150)
     bindingsButton:SetPoint("TOPLEFT", panel.preventDismountFlying, "BOTTOMLEFT", 0, -20)
@@ -1459,9 +1551,38 @@ function RIDE:RefreshOptions()
         end
     end
 
+    if optionsPanel.classMount then
+        local classMountName = GetBestClassMountName()
+        local hasClassMount = hasClassMounts and classMountName
+
+        optionsPanel.classMount:Refresh()
+        if hasClassMount then
+            optionsPanel.classMount:Show()
+            optionsPanel.classMount:SetEnabled(true)
+            optionsPanel.classMount:ClearAllPoints()
+            if isDruid then
+                optionsPanel.classMount:SetPoint("TOPLEFT", optionsPanel.druidTravel, "BOTTOMLEFT", 0, -8)
+            else
+                optionsPanel.classMount:SetPoint("TOPLEFT", optionsPanel.groundSlot, "BOTTOMLEFT", 0, -24)
+            end
+        else
+            optionsPanel.classMount:Hide()
+            optionsPanel.classMount:SetEnabled(false)
+        end
+        if optionsPanel.classMount.icon then
+            optionsPanel.classMount.icon:SetTexture(GetClassMountIcon())
+            optionsPanel.classMount.icon:SetAlpha(hasClassMount and 1 or 0.35)
+        end
+        if optionsPanel.classMount.label then
+            optionsPanel.classMount.label:SetTextColor(hasClassMount and 1 or 0.55, hasClassMount and 0.82 or 0.55, hasClassMount and 0 or 0.55)
+        end
+    end
+
     if optionsPanel.preventDismountFlying then
         optionsPanel.preventDismountFlying:ClearAllPoints()
-        if isDruid then
+        if optionsPanel.classMount and optionsPanel.classMount:IsShown() then
+            optionsPanel.preventDismountFlying:SetPoint("TOPLEFT", optionsPanel.classMount, "BOTTOMLEFT", 0, -8)
+        elseif isDruid then
             optionsPanel.preventDismountFlying:SetPoint("TOPLEFT", optionsPanel.druidTravel, "BOTTOMLEFT", 0, -8)
         else
             optionsPanel.preventDismountFlying:SetPoint("TOPLEFT", optionsPanel.groundSlot, "BOTTOMLEFT", 0, -24)
@@ -1531,6 +1652,7 @@ local function PrintHelp()
     Print(L.HELP_CURSOR)
     Print(L.HELP_CLEAR)
     Print(L.HELP_DRUID)
+    Print(L.HELP_CLASS_MOUNT)
     Print(L.HELP_BIND)
     Print(L.HELP_UNBIND)
     Print(L.HELP_UPDATE)
@@ -1581,6 +1703,14 @@ function RIDE:HandleSlash(msg)
         db.useDruidTravel = enabled
         self:UpdateSecureAction()
         Print(enabled and L.DRUID_ON or L.DRUID_OFF)
+    elseif command == "classmount" or command == "class" then
+        if hasClassMounts and GetBestClassMountName() then
+            db.useClassMount = not db.useClassMount
+            self:UpdateSecureAction()
+            Print(db.useClassMount and L.CLASS_MOUNT_ON or L.CLASS_MOUNT_OFF)
+        else
+            Print(L.NO_ACTION)
+        end
     elseif command == "bind" then
         if rest == "" then
             self:StartBindingCapture()
@@ -1607,16 +1737,14 @@ RIDE:SetScript("OnEvent", function(self, event, arg1)
     if event == "ADDON_LOADED" and arg1 == ADDON_NAME then
         EnsureDb()
         ClearInvalidSlotMounts()
-        _, playerClass = UnitClass("player")
-        isDruid = playerClass == "DRUID"
+        UpdatePlayerClass()
         RegisterSlashCommands()
         RegisterInterfaceOptions()
         self:UpdateSecureAction(true)
         self:ApplyVisibleBindingOverride()
         Print(L.LOADED)
     elseif event == "PLAYER_LOGIN" then
-        _, playerClass = UnitClass("player")
-        isDruid = playerClass == "DRUID"
+        UpdatePlayerClass()
         self:UpdateSecureAction(true)
         self:ApplyVisibleBindingOverride()
     elseif event == "PLAYER_REGEN_ENABLED" then
@@ -1633,7 +1761,11 @@ RIDE:SetScript("OnEvent", function(self, event, arg1)
         or event == "LEARNED_SPELL_IN_TAB"
         or event == "SPELLS_CHANGED"
         or event == "BAG_UPDATE_DELAYED" then
+        if event == "LEARNED_SPELL_IN_TAB" or event == "SPELLS_CHANGED" then
+            UpdatePlayerClass()
+        end
         self:UpdateSecureAction(true)
+        self:RefreshOptions()
     elseif event == "UPDATE_BINDINGS" then
         self:ApplyVisibleBindingOverride()
         self:RefreshOptions()
