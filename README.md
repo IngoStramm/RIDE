@@ -4,9 +4,11 @@
 
 # RIDE - Ride Intelligent Dispatch Engine
 
-RIDE is a World of Warcraft Classic TBC Anniversary addon that binds one secure button to a smart travel action.
+A smart one-key mount addon that automatically chooses the best ground, flying, or Druid travel option for your current situation.
 
-It does not use the broken `[flyable]` macro conditional. Instead, it decides whether the player is in a flyable TBC outdoor area and updates a secure macro out of combat.
+RIDE is a lightweight World of Warcraft Classic TBC Anniversary addon that gives you one smart keybind for travel. Instead of managing separate buttons for ground mounts, flying mounts, and Druid travel forms, RIDE chooses the best available option based on your current area and configuration.
+
+RIDE is designed for Classic TBC, where mounts are still items in your bags. It does not rely on the broken `[flyable]` macro conditional; instead, it updates a secure travel action out of combat.
 
 ## Features
 
@@ -52,6 +54,18 @@ Do not use GitHub's green **Code > Download ZIP** button for installation. That 
 - `/ride update` - rebuild the secure action
 
 Set the key in Options > Keybindings > AddOns > RIDE, or use the Set key button in `/ride`.
+
+## Changelog
+
+### 1.0.1
+
+- Added one smart keybind for ground mounts, flying mounts, and Druid travel forms.
+- Added drag-and-drop setup for ground and flying mount items.
+- Added Druid support for Aquatic Form, Flight Form, and Travel Form.
+- Added fallback to ground mount when no usable flying mount is configured.
+- Added optional protection against dismounting while flying.
+- Added standalone `/ride` configuration window.
+- Added support for WoW's Keybindings options.
 
 ## Compatibility
 
