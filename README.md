@@ -19,6 +19,7 @@ RIDE is designed for Classic TBC, where mounts are still items in your bags. It 
 - Fallback to ground mount when the character has no usable flying mount.
 - Optional protection against dismounting while flying.
 - Keybind setup from the RIDE options panel or WoW's Keybindings options.
+- Localized UI text for WoW-supported clients.
 
 ## Installation
 
@@ -60,6 +61,13 @@ Set the key in Options > Keybindings > AddOns > RIDE, or use the Set key button 
 ## Changelog
 
 The latest release changelog used by CurseForge and GitHub Releases is maintained in [CHANGELOG.md](CHANGELOG.md).
+
+### 1.1.0
+
+- Added localized UI text for all WoW-supported client locales.
+- Added localized keybinding labels for the Smart Travel action.
+- Added per-string English fallback protection so missing translations do not break the addon UI.
+- Updated the README feature list to mention localized UI support.
 
 ### 1.0.6
 

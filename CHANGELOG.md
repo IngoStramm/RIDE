@@ -1,4 +1,6 @@
-## 1.0.6
+## 1.1.0
 
-- Removed the Refresh button from the RIDE options panel to keep the configuration UI simpler.
-- Kept `/ride update` available as a hidden manual fallback for troubleshooting and support.
+- Added localized UI text for all WoW-supported client locales.
+- Added localized keybinding labels for the Smart Travel action.
+- Added per-string English fallback protection so missing translations do not break the addon UI.
+- Updated the README feature list to mention localized UI support.
