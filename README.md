@@ -62,6 +62,12 @@ Set the key in Options > Keybindings > AddOns > RIDE, or use the Set key button 
 
 The latest release changelog used by CurseForge and GitHub Releases is maintained in [CHANGELOG.md](CHANGELOG.md).
 
+### 1.1.1
+
+- Added compatibility metadata for WoW Classic TBC Anniversary client 2.5.6.
+- Kept compatibility metadata for client 2.5.5.
+- No addon behavior changes from 1.1.0.
+
 ### 1.1.0
 
 - Added localized UI text for all WoW-supported client locales.
@@ -113,4 +119,4 @@ The latest release changelog used by CurseForge and GitHub Releases is maintaine
 ## Compatibility
 
 - World of Warcraft Classic TBC Anniversary
-- Interface: `20505`
+- Interface: `20505`, `20506`
