@@ -33,7 +33,7 @@ local LOCALES = {
         DRUID_FORMS = "Use Druid travel forms",
         DRUID_AQUATIC = "Use Aquatic Form while swimming",
         DRUID_FLIGHT = "Use Flight Form in flyable areas",
-        DRUID_TRAVEL = "Use Travel Form on ground",
+        DRUID_TRAVEL = "Use Travel Form in combat",
         CLASS_MOUNT = "Use class mount",
         PREVENT_FLYING_DISMOUNT = "Prevent dismount while flying",
         SET_BINDING = "Set key",
@@ -95,7 +95,7 @@ local LOCALES = {
         DRUID_FORMS = "Usar formas de viagem do druida",
         DRUID_AQUATIC = "Usar Forma Aquatica ao nadar",
         DRUID_FLIGHT = "Usar Forma de Voo em areas voaveis",
-        DRUID_TRAVEL = "Usar Forma de Viagem em terra",
+        DRUID_TRAVEL = "Usar Forma de Viagem em combate",
         CLASS_MOUNT = "Usar montaria de classe",
         PREVENT_FLYING_DISMOUNT = "Prevenir desmontar enquanto voa",
         SET_BINDING = "Definir tecla",
@@ -157,7 +157,7 @@ local LOCALES = {
         DRUID_FORMS = "Druiden-Reisegestalten verwenden",
         DRUID_AQUATIC = "Wassergestalt beim Schwimmen verwenden",
         DRUID_FLIGHT = "Fluggestalt in flugfähigen Gebieten verwenden",
-        DRUID_TRAVEL = "Reisegestalt am Boden verwenden",
+        DRUID_TRAVEL = "Reisegestalt im Kampf verwenden",
         CLASS_MOUNT = "Klassenreittier verwenden",
         PREVENT_FLYING_DISMOUNT = "Absteigen im Flug verhindern",
         SET_BINDING = "Taste setzen",
@@ -219,7 +219,7 @@ local LOCALES = {
         DRUID_FORMS = "Usar formas de viaje del druida",
         DRUID_AQUATIC = "Usar Forma acuática al nadar",
         DRUID_FLIGHT = "Usar Forma de vuelo en zonas volables",
-        DRUID_TRAVEL = "Usar Forma de viaje en tierra",
+        DRUID_TRAVEL = "Usar Forma de viaje en combate",
         CLASS_MOUNT = "Usar montura de clase",
         PREVENT_FLYING_DISMOUNT = "Evitar desmontar mientras vuelas",
         SET_BINDING = "Asignar tecla",
@@ -281,7 +281,7 @@ local LOCALES = {
         DRUID_FORMS = "Usar formas de viaje del druida",
         DRUID_AQUATIC = "Usar Forma acuática al nadar",
         DRUID_FLIGHT = "Usar Forma de vuelo en zonas donde se puede volar",
-        DRUID_TRAVEL = "Usar Forma de viaje en tierra",
+        DRUID_TRAVEL = "Usar Forma de viaje en combate",
         CLASS_MOUNT = "Usar montura de clase",
         PREVENT_FLYING_DISMOUNT = "Evitar desmontar mientras vuelas",
         SET_BINDING = "Asignar tecla",
@@ -343,7 +343,7 @@ local LOCALES = {
         DRUID_FORMS = "Utiliser les formes de voyage du druide",
         DRUID_AQUATIC = "Utiliser Forme aquatique en nageant",
         DRUID_FLIGHT = "Utiliser Forme de vol dans les zones de vol",
-        DRUID_TRAVEL = "Utiliser Forme de voyage au sol",
+        DRUID_TRAVEL = "Utiliser Forme de voyage en combat",
         CLASS_MOUNT = "Utiliser la monture de classe",
         PREVENT_FLYING_DISMOUNT = "Empêcher de descendre en vol",
         SET_BINDING = "Définir touche",
@@ -405,7 +405,7 @@ local LOCALES = {
         DRUID_FORMS = "Usa forme di viaggio del druido",
         DRUID_AQUATIC = "Usa Forma Acquatica mentre nuoti",
         DRUID_FLIGHT = "Usa Forma di Volo nelle aree volabili",
-        DRUID_TRAVEL = "Usa Forma di Viaggio a terra",
+        DRUID_TRAVEL = "Usa Forma di Viaggio in combattimento",
         CLASS_MOUNT = "Usa cavalcatura di classe",
         PREVENT_FLYING_DISMOUNT = "Impedisci discesa in volo",
         SET_BINDING = "Imposta tasto",
@@ -467,7 +467,7 @@ local LOCALES = {
         DRUID_FORMS = "드루이드 이동 변신 사용",
         DRUID_AQUATIC = "수영 중 바다표범 변신 사용",
         DRUID_FLIGHT = "비행 가능 지역에서 폭풍까마귀 변신 사용",
-        DRUID_TRAVEL = "지상에서 치타 변신 사용",
+        DRUID_TRAVEL = "전투 중 치타 변신 사용",
         CLASS_MOUNT = "직업 탈것 사용",
         PREVENT_FLYING_DISMOUNT = "비행 중 탈것 해제 방지",
         SET_BINDING = "키 설정",
@@ -529,7 +529,7 @@ local LOCALES = {
         DRUID_FORMS = "Использовать дорожные облики друида",
         DRUID_AQUATIC = "Использовать водный облик при плавании",
         DRUID_FLIGHT = "Использовать облик полета в летных зонах",
-        DRUID_TRAVEL = "Использовать походный облик на земле",
+        DRUID_TRAVEL = "Использовать походный облик в бою",
         CLASS_MOUNT = "Использовать классовое средство",
         PREVENT_FLYING_DISMOUNT = "Запретить спешивание в полете",
         SET_BINDING = "Назначить",
@@ -591,7 +591,7 @@ local LOCALES = {
         DRUID_FORMS = "使用德鲁伊旅行形态",
         DRUID_AQUATIC = "游泳时使用水栖形态",
         DRUID_FLIGHT = "在可飞行区域使用飞行形态",
-        DRUID_TRAVEL = "地面使用旅行形态",
+        DRUID_TRAVEL = "战斗中使用旅行形态",
         CLASS_MOUNT = "使用职业坐骑",
         PREVENT_FLYING_DISMOUNT = "飞行中防止下坐骑",
         SET_BINDING = "设置按键",
@@ -653,7 +653,7 @@ local LOCALES = {
         DRUID_FORMS = "使用德魯伊旅行形態",
         DRUID_AQUATIC = "游泳時使用水棲形態",
         DRUID_FLIGHT = "在可飛行區域使用飛行形態",
-        DRUID_TRAVEL = "地面使用旅行形態",
+        DRUID_TRAVEL = "戰鬥中使用旅行形態",
         CLASS_MOUNT = "使用職業坐騎",
         PREVENT_FLYING_DISMOUNT = "飛行中防止下坐騎",
         SET_BINDING = "設定按鍵",
@@ -1250,14 +1250,16 @@ local function BuildMacro()
         end
     end
 
+    if isDruid and db.useDruidTravel then
+        local travelName = GetKnownSpellName(DRUID_SPELLS.travel)
+        if travelName then
+            AddLine(lines, "/cast [combat,outdoors,nomounted] " .. travelName)
+            AddLine(lines, "/stopmacro [combat,outdoors,nomounted]")
+        end
+    end
+
     if RIDE:IsFlyableArea() then
         if isDruid and db.useDruidFlight then
-            local travelName = db.useDruidTravel and GetKnownSpellName(DRUID_SPELLS.travel)
-            if travelName then
-                AddLine(lines, "/cast [combat,outdoors] " .. travelName)
-                AddLine(lines, "/stopmacro [combat]")
-            end
-
             local flightName = GetBestFlightForm()
             if flightName then
                 AddLine(lines, "/cast [outdoors,nomounted] " .. flightName)
@@ -1269,15 +1271,6 @@ local function BuildMacro()
         if IsMountConfiguredAndInBags(db.flying) then
             AddLine(lines, "/use [nomounted] " .. EscapeMacroArg(db.flying.name))
             actionText = db.flying.name
-            return table.concat(lines, "\n"), actionText
-        end
-    end
-
-    if isDruid and db.useDruidTravel then
-        local travelName = GetKnownSpellName(DRUID_SPELLS.travel)
-        if travelName then
-            AddLine(lines, "/cast [outdoors,nomounted] " .. travelName)
-            actionText = travelName
             return table.concat(lines, "\n"), actionText
         end
     end

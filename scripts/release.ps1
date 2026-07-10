@@ -57,7 +57,7 @@ npx.cmd --yes luaparse .\RIDE.lua > $null
 git diff --check
 
 if ($Publish) {
-    git add RIDE.toc CHANGELOG.md README.md .pkgmeta .github/workflows/release.yml scripts/release.ps1
+    git add RIDE.toc RIDE.lua CHANGELOG.md README.md .pkgmeta .github/workflows/release.yml scripts/release.ps1
     git commit -m "Release $Version"
     git push origin main
     git tag "v$Version"

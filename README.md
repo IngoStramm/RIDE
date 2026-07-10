@@ -14,7 +14,7 @@ RIDE is designed for Classic TBC, where mounts are still items in your bags. It 
 
 - One keybind for ground mounts, flying mounts, class mounts, and Druid travel forms.
 - Ground/flying mount slots with drag-and-drop item setup.
-- Druid Aquatic Form, Flight Form, and Travel Form support when known.
+- Druid Aquatic Form, Flight Form, and combat Travel Form support when known.
 - Paladin Warhorse/Charger and Warlock Felsteed/Dreadsteed support when known.
 - Fallback to ground mount when the character has no usable flying mount.
 - Optional protection against dismounting while flying.
@@ -61,6 +61,12 @@ Set the key in Options > Keybindings > AddOns > RIDE, or use the Set key button 
 ## Changelog
 
 The latest release changelog used by CurseForge and GitHub Releases is maintained in [CHANGELOG.md](CHANGELOG.md).
+
+### 1.1.2
+
+- Changed Druid Travel Form behavior so it no longer replaces the configured ground mount outside combat.
+- Added Travel Form as an outdoor combat fallback for Druids when the option is enabled.
+- Updated the Druid Travel Form option text to describe the new combat-focused behavior.
 
 ### 1.1.1
 
